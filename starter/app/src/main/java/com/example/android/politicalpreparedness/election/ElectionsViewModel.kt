@@ -1,16 +1,63 @@
 package com.example.android.politicalpreparedness.election
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.MutableLiveData
+import com.example.android.politicalpreparedness.data.database.Result
+import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.base.BaseViewModel
+import com.example.android.politicalpreparedness.base.NavigationCommand
+import com.example.android.politicalpreparedness.domain.model.Election
+import com.example.android.politicalpreparedness.domain.repository.ElectionLocalRepository
+import com.example.android.politicalpreparedness.domain.repository.ElectionRemoteRepository
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 //TODO: Construct ViewModel and provide election datasource
-class ElectionsViewModel: ViewModel() {
+class ElectionsViewModel(
+    private val app: Application,
+    private val remoteRepository: ElectionRemoteRepository,
+    private val localRepository: ElectionLocalRepository
+) : BaseViewModel(app) {
 
-    //TODO: Create live data val for upcoming elections
+    private val _upcomingElections = MutableLiveData<List<Election>>()
+    val upcomingElections: MutableLiveData<List<Election>>
+        get() = _upcomingElections
 
-    //TODO: Create live data val for saved elections
+     val savedElections = localRepository.getElections()
 
-    //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
+    init {
+        viewModelScope.launch {
+            getUpcomingElections()
+        }
+    }
 
-    //TODO: Create functions to navigate to saved or upcoming election voter info
+    fun navigateToVoterInfo(election: Election) {
+        navigationCommand.value = NavigationCommand.To(
+            ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(
+                election
+            )
+        )
+    }
+
+    private suspend fun getUpcomingElections() {
+        viewModelScope.launch {
+            try {
+                when (val result = remoteRepository.getElections()) {
+                    is Result.Success<List<Election>> -> {
+                        _upcomingElections.value = result.data
+                    }
+
+                    is Result.Error -> {
+                        Timber.e("Get upcoming error: ${result.message}")
+                        showSnackBar.value = result.message
+                    }
+                }
+            } catch (e: Exception) {
+                Timber.e(e)
+                showSnackBar.value = e.message
+            }
+        }
+    }
+
 
 }

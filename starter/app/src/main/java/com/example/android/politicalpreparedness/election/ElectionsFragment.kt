@@ -2,30 +2,60 @@ package com.example.android.politicalpreparedness.election
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.android.politicalpreparedness.base.BaseFragment
+import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
+import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
+import com.example.android.politicalpreparedness.election.adapter.ElectionListener
+import com.example.android.politicalpreparedness.utils.setDisplayHomeAsUpEnabled
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ElectionsFragment: Fragment() {
+class ElectionsFragment : BaseFragment() {
 
-    // TODO: Declare ViewModel
+    override val _viewModel by viewModel<ElectionsViewModel>()
+
+    private lateinit var binding: FragmentElectionBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?)
-    : View? {
-        // TODO: Add ViewModel values and create ViewModel
+        savedInstanceState: Bundle?
+    )
+            : View {
+        binding = FragmentElectionBinding.inflate(inflater)
+        binding.lifecycleOwner = this
 
-        // TODO: Add binding values
+        // ViewModel values and create ViewModel
+        binding.viewModel = _viewModel
 
-        // TODO: Link elections to voter info
 
-        // TODO: Initiate recycler adapters
+        val upComingAdapter = ElectionListAdapter(ElectionListener { election ->
+            _viewModel.navigateToVoterInfo(election)
+        })
+        val savedAdapter = ElectionListAdapter(ElectionListener { election ->
+            _viewModel.navigateToVoterInfo(election)
+        })
 
-        // TODO: Populate recycler adapters
-        return null
+        _viewModel.upcomingElections.observe(viewLifecycleOwner) {
+            it?.let {
+                upComingAdapter.submitList(it)
+            }
+        }
+
+        _viewModel.savedElections.observe(viewLifecycleOwner) {
+            it?.let {
+                savedAdapter.submitList(it)
+            }
+        }
+
+        binding.rclUpcomingElections.adapter = upComingAdapter
+        binding.rclSavedElections.adapter = savedAdapter
+        return binding.root
     }
 
-    // TODO: Refresh adapters when fragment loads
+    //Popback when click home
+
 }
