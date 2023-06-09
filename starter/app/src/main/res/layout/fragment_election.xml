@@ -25,6 +25,17 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            fadeVisible="@{viewModel.showLoading}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/rclUpcomingElections"
+            app:layout_constraintLeft_toLeftOf="@id/rclUpcomingElections"
+            app:layout_constraintRight_toRightOf="@id/rclUpcomingElections"
+            app:layout_constraintTop_toTopOf="@id/rclUpcomingElections" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rclUpcomingElections"
             android:layout_width="match_parent"

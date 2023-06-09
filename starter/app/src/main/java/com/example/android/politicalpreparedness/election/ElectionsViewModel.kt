@@ -23,7 +23,7 @@ class ElectionsViewModel(
     val upcomingElections: MutableLiveData<List<Election>>
         get() = _upcomingElections
 
-     val savedElections = localRepository.getElections()
+    val savedElections = localRepository.getElections()
 
     init {
         viewModelScope.launch {
@@ -40,9 +40,12 @@ class ElectionsViewModel(
     }
 
     private suspend fun getUpcomingElections() {
+        showLoading.value = false
         viewModelScope.launch {
             try {
-                when (val result = remoteRepository.getElections()) {
+                val result = remoteRepository.getElections()
+                showLoading.value = false
+                when (result) {
                     is Result.Success<List<Election>> -> {
                         _upcomingElections.value = result.data
                     }

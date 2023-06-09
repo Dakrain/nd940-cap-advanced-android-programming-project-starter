@@ -123,6 +123,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/form_representative_search" />
 
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            fadeVisible="@{viewModel.showLoading}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/rclMyRepresentatives"
+            app:layout_constraintLeft_toLeftOf="@id/rclMyRepresentatives"
+            app:layout_constraintRight_toRightOf="@id/rclMyRepresentatives"
+            app:layout_constraintTop_toTopOf="@id/rclMyRepresentatives" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rclMyRepresentatives"
             android:layout_width="match_parent"

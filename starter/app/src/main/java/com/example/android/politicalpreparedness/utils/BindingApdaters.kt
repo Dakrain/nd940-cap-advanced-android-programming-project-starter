@@ -45,7 +45,7 @@ fun TextView.bindCorrespondenceAddress(states: List<State>?) {
 
 @BindingAdapter("fadeVisible")
 fun View.bindFadeVisible(showLoading: Boolean = false) {
-    if(showLoading) {
+    if(!showLoading) {
         visibility = View.VISIBLE
         fadeOut()
     } else {
