@@ -18,7 +18,7 @@
 
         <TextView
             android:id="@+id/tvUpComingHeader"
-            style="@style/header_style"
+            style="@style/headerTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/upcoming_elections"
@@ -37,7 +37,7 @@
 
         <TextView
             android:id="@+id/tvSavedHeader"
-            style="@style/header_style"
+            style="@style/headerTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/saved_elections"

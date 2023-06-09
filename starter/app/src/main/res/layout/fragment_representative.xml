@@ -21,59 +21,52 @@
             android:id="@+id/form_representative_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/default_padding"
             app:layout_constraintTop_toTopOf="parent">
-            <!-- TODO: Add visual styling and content -->
+
             <TextView
                 android:id="@+id/search_title"
+                style="@style/headerTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Search for representatives"
+                android:text="@string/search_for_representatives"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- TODO: Add data binding value -->
-            <!-- TODO: Add visual styling and content -->
             <EditText
                 android:id="@+id/edtAddress1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="Address 1"
+                android:hint="@string/address_1"
                 android:inputType="textPostalAddress"
                 android:text="@={viewModel.address1}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/search_title" />
 
-            <!-- TODO: Add data binding value -->
-            <!-- TODO: Add visual styling and content -->
             <EditText
                 android:id="@+id/edtAddress2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:autofillHints=""
-                android:hint="Address 2"
+                android:hint="@string/address_2"
                 android:inputType="textPostalAddress"
                 android:text="@={viewModel.address2}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edtAddress1" />
 
-            <!-- TODO: Add data binding value -->
-            <!-- TODO: Add visual styling and content -->
             <EditText
                 android:id="@+id/edtCity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="City"
+                android:hint="@string/city"
                 android:inputType="textPostalAddress"
                 android:text="@={viewModel.city}"
                 app:layout_constraintEnd_toStartOf="@id/spnState"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edtAddress2" />
 
-            <!-- TODO: Add default values from provided resources  -->
-            <!-- TODO: Add data binding value -->
-            <!-- TODO: Add visual styling and content -->
             <Spinner
                 android:id="@+id/spnState"
                 android:layout_width="0dp"
@@ -86,14 +79,12 @@
                 app:layout_constraintStart_toEndOf="@id/edtCity"
                 app:layout_constraintTop_toTopOf="@id/edtCity" />
 
-            <!-- TODO: Add data binding value -->
-            <!-- TODO: Add visual styling and content -->
             <EditText
                 android:id="@+id/edtZip"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="Zip"
+                android:hint="@string/zip"
                 android:inputType="number"
                 android:maxLength="5"
                 android:text="@={viewModel.zip}"
@@ -104,28 +95,31 @@
             <!-- TODO: Add visual styling and label -->
             <Button
                 android:id="@+id/btnSearch"
+                style="@style/primaryButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Find my representatives"
+                android:text="@string/find_my_representatives"
                 app:layout_constraintTop_toBottomOf="@id/edtZip" />
 
             <!-- TODO: Add visual styling and content -->
             <Button
                 android:id="@+id/btnMyLocation"
+                style="@style/primaryButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Use my location"
+                android:layout_marginTop="@dimen/defaultMargin"
+                android:text="@string/use_my_location"
                 app:layout_constraintTop_toBottomOf="@id/btnSearch" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/representative_title"
+            style="@style/headerTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My representatives"
+            android:text="@string/my_representatives"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/form_representative_search" />
 

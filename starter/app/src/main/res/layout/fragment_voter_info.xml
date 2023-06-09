@@ -19,12 +19,11 @@
 
         <TextView
             android:id="@+id/election_name"
+            style="@style/headerTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:text="@{viewModel.voterInfo.election.name}"
-            android:textSize="20sp"
-            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="VIP Election" />
 
@@ -38,17 +37,14 @@
 
         <TextView
             android:id="@+id/state_header"
+            style="@style/headerTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Election Information"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:layout_marginTop="@dimen/defaultMargin"
+            android:text="@string/election_information"
             app:layout_constraintStart_toStartOf="@id/election_date"
             app:layout_constraintTop_toBottomOf="@id/election_date" />
 
-        <!-- TODO: Add click binding to open web URL -->
-        <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/state_locations"
             android:layout_width="wrap_content"
@@ -58,8 +54,6 @@
             app:layout_constraintStart_toStartOf="@id/election_date"
             app:layout_constraintTop_toBottomOf="@id/state_header" />
 
-        <!-- TODO: Add click binding to open web URL -->
-        <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/state_ballot"
             android:layout_width="wrap_content"
@@ -74,18 +68,16 @@
             android:layout_height="wrap_content"
             app:constraint_referenced_ids="state_correspondence_header,address" />
 
-        <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/state_correspondence_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/defaultMargin"
             app:correspondenceAddress="@{viewModel.voterInfo.state}"
             app:drawableLeftCompat="@drawable/outline_location_on_24"
             app:layout_constraintStart_toStartOf="@id/election_date"
             app:layout_constraintTop_toBottomOf="@id/state_ballot" />
 
-        <!-- TODO: Add data binding -->
         <TextView
             android:id="@+id/address"
             android:layout_width="wrap_content"
@@ -93,9 +85,9 @@
             app:layout_constraintStart_toStartOf="@id/election_date"
             app:layout_constraintTop_toBottomOf="@id/state_correspondence_header" />
 
-        <!-- TODO: Add button to save election to Room -->
         <Button
             android:id="@+id/btnFollow"
+            style="@style/primaryButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{() -> viewModel.followOnClick()}"

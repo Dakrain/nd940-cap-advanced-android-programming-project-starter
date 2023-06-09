@@ -20,8 +20,10 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnUpcomingElections"
+            style="@style/primaryButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/defaultMargin"
             android:text="@string/upcoming_elections"
             app:layout_constraintBottom_toTopOf="@id/btnRepresentatives"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -29,6 +31,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnRepresentatives"
+            style="@style/primaryButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/find_my_representatives"

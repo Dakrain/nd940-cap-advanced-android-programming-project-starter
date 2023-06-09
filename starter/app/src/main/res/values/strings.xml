@@ -13,6 +13,14 @@
     <string name="location_not_found">C\n</string>
     <string name="cant_fetch_location">Can\'t get your current location, please try again later.</string>
     <string name="location_required_error">Location services must be enabled to use this feature.</string>
+    <string name="search_for_representatives">Search for representatives</string>
+    <string name="my_representatives">My representatives</string>
+    <string name="address_1">Address 1</string>
+    <string name="address_2">Address 2</string>
+    <string name="city">City</string>
+    <string name="zip">Zip</string>
+    <string name="use_my_location">Use my location</string>
+    <string name="election_information">Election Information</string>
 
     <!-- TODO: Add necessary string values -->
 
