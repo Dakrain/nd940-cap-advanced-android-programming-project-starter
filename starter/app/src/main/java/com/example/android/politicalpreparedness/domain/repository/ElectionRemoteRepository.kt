@@ -50,10 +50,7 @@ class ElectionRemoteRepository(
         return withContext(dispatcher) {
             try {
                 val response = service.getRepresentatives(
-                    address,
-                    recursive = false,
-                    levels = null,
-                    roles = null
+                    address
                 )
                 val representative = response.offices.map { office ->
                     office.getRepresentatives(response.officials)

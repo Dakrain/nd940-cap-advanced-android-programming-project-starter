@@ -47,10 +47,7 @@ interface CivicsApiService {
 
     @GET("representatives")
     suspend fun getRepresentatives(
-        @Query("ocdId") ocdId: String,
-        @Query("levels") levels: String?,
-        @Query("roles") roles: String?,
-        @Query("recursive") recursive: Boolean = false
+        @Query("address") address: String
     ): RepresentativeResponse
 
 }

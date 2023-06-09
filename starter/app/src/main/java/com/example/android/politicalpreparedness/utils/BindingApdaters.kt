@@ -1,5 +1,6 @@
 package com.example.android.politicalpreparedness.utils
 
+import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.android.politicalpreparedness.R
@@ -40,3 +41,16 @@ fun TextView.bindCorrespondenceAddress(states: List<State>?) {
         text = address
     }
 }
+
+
+@BindingAdapter("fadeVisible")
+fun View.bindFadeVisible(showLoading: Boolean = false) {
+    if(showLoading) {
+        visibility = View.VISIBLE
+        fadeOut()
+    } else {
+        visibility = View.GONE
+        fadeIn()
+    }
+}
+

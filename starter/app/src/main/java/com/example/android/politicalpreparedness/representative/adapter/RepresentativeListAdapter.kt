@@ -7,14 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.ViewholderRepresentativeBinding
 import com.example.android.politicalpreparedness.domain.model.Channel
 import com.example.android.politicalpreparedness.domain.model.Representative
 
-class RepresentativeListAdapter: ListAdapter<Representative, RepresentativeViewHolder>(RepresentativeDiffCallback()){
+class RepresentativeListAdapter :
+    ListAdapter<Representative, RepresentativeViewHolder>(RepresentativeDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepresentativeViewHolder {
         return RepresentativeViewHolder.from(parent)
@@ -26,11 +29,27 @@ class RepresentativeListAdapter: ListAdapter<Representative, RepresentativeViewH
     }
 }
 
-class RepresentativeViewHolder(val binding: ViewholderRepresentativeBinding): RecyclerView.ViewHolder(binding.root) {
+class RepresentativeViewHolder(val binding: ViewholderRepresentativeBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Representative) {
         binding.representative = item
-        binding.representativePhoto.setImageResource(R.drawable.ic_profile)
+
+        val uri = item.official.photoUrl?.toUri()?.buildUpon()?.scheme("https")?.build()
+
+        Glide.with(binding.root)
+            .load(uri)
+            .placeholder(R.drawable.ic_profile)
+            .circleCrop()
+            .error(R.drawable.ic_profile)
+            .into(binding.representativePhoto)
+
+        binding.representativeOffice.text = item.office.name
+        binding.representativeName.text = item.official.name
+
+        showSocialLinks(item.official.channels ?: emptyList())
+        showWWWLinks(item.official.urls ?: emptyList())
+
 
         //TODO: Show social links ** Hint: Use provided helper methods
         //TODO: Show www link ** Hint: Use provided helper methods
@@ -48,10 +67,14 @@ class RepresentativeViewHolder(val binding: ViewholderRepresentativeBinding): Re
 
     private fun showSocialLinks(channels: List<Channel>) {
         val facebookUrl = getFacebookUrl(channels)
-        if (!facebookUrl.isNullOrBlank()) { enableLink(binding.facebookIcon, facebookUrl) }
+        if (!facebookUrl.isNullOrBlank()) {
+            enableLink(binding.facebookIcon, facebookUrl)
+        }
 
         val twitterUrl = getTwitterUrl(channels)
-        if (!twitterUrl.isNullOrBlank()) { enableLink(binding.twitterIcon, twitterUrl) }
+        if (!twitterUrl.isNullOrBlank()) {
+            enableLink(binding.twitterIcon, twitterUrl)
+        }
     }
 
     private fun showWWWLinks(urls: List<String>) {
@@ -60,14 +83,14 @@ class RepresentativeViewHolder(val binding: ViewholderRepresentativeBinding): Re
 
     private fun getFacebookUrl(channels: List<Channel>): String? {
         return channels.filter { channel -> channel.type == "Facebook" }
-                .map { channel -> "https://www.facebook.com/${channel.id}" }
-                .firstOrNull()
+            .map { channel -> "https://www.facebook.com/${channel.id}" }
+            .firstOrNull()
     }
 
     private fun getTwitterUrl(channels: List<Channel>): String? {
         return channels.filter { channel -> channel.type == "Twitter" }
-                .map { channel -> "https://www.twitter.com/${channel.id}" }
-                .firstOrNull()
+            .map { channel -> "https://www.twitter.com/${channel.id}" }
+            .firstOrNull()
     }
 
     private fun enableLink(view: ImageView, url: String) {
@@ -83,7 +106,8 @@ class RepresentativeViewHolder(val binding: ViewholderRepresentativeBinding): Re
 
 }
 
-class RepresentativeDiffCallback: androidx.recyclerview.widget.DiffUtil.ItemCallback<Representative>() {
+class RepresentativeDiffCallback :
+    androidx.recyclerview.widget.DiffUtil.ItemCallback<Representative>() {
     override fun areItemsTheSame(oldItem: Representative, newItem: Representative): Boolean {
         return oldItem.official == newItem.official
     }
@@ -92,6 +116,7 @@ class RepresentativeDiffCallback: androidx.recyclerview.widget.DiffUtil.ItemCall
         return oldItem == newItem
     }
 }
+
 interface RepresentativeListener {
     fun onClick(representative: Representative)
 }
